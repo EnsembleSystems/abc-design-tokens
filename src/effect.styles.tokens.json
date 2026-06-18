@@ -1,0 +1,63 @@
+{
+  "Elevation 2 - Default": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "offsetX": "2px",
+        "offsetY": "2px",
+        "blur": "4px",
+        "spread": "0px",
+        "color": "#00000040"
+      }
+    ]
+  },
+  "Elevation 3": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "offsetX": "5px",
+        "offsetY": "5px",
+        "blur": "10px",
+        "spread": "0px",
+        "color": "#00000040"
+      }
+    ]
+  },
+  "Elevation 4": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "offsetX": "4px",
+        "offsetY": "4px",
+        "blur": "4px",
+        "spread": "0px",
+        "color": "#00000040",
+        "inset": true
+      }
+    ]
+  },
+  "concept shadow": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "offsetX": "0px",
+        "offsetY": "-4px",
+        "blur": "10px",
+        "spread": "0px",
+        "color": "#0000001a"
+      }
+    ]
+  },
+  "google card shadow": {
+    "$type": "shadow",
+    "$value": [
+      {
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur": "4px",
+        "spread": "0px",
+        "color": "#00000040"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "abc-design-tokens",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:tokens && npm run build:global",
+    "build:tokens": "node build.js",
+    "build:global": "node global.js",
+    "copy": "cp dist/tokens.css dist/global.css ../abc-aem-sites/styles/"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.0.0"
+  }
+}

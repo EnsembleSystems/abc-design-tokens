@@ -1,0 +1,150 @@
+{
+  "font-family": {
+    "default": {
+      "$type": "string",
+      "$value": "Roboto"
+    },
+    "heading": {
+      "$type": "string",
+      "$value": "Paralucent"
+    }
+  },
+  "font-weight": {
+    "light": {
+      "$type": "dimension",
+      "$value": "300"
+    },
+    "regular": {
+      "$type": "dimension",
+      "$value": "400"
+    },
+    "medium": {
+      "$type": "dimension",
+      "$value": "500"
+    },
+    "semibold": {
+      "$type": "dimension",
+      "$value": "600"
+    },
+    "bold": {
+      "$type": "dimension",
+      "$value": "700"
+    }
+  },
+  "h1banner": {
+    "$type": "dimension",
+    "$value": "45px"
+  },
+  "h1": {
+    "$type": "dimension",
+    "$value": "45px"
+  },
+  "h2": {
+    "$type": "dimension",
+    "$value": "36px"
+  },
+  "h3": {
+    "$type": "dimension",
+    "$value": "31.5px"
+  },
+  "h4": {
+    "$type": "dimension",
+    "$value": "27px"
+  },
+  "h5": {
+    "$type": "dimension",
+    "$value": "22.5px"
+  },
+  "h6": {
+    "$type": "dimension",
+    "$value": "18px"
+  },
+  "paragraph-default": {
+    "$type": "dimension",
+    "$value": "18px"
+  },
+  "navigation": {
+    "$type": "dimension",
+    "$value": "16px"
+  },
+  "line-height": {
+    "h1banner": {
+      "$type": "dimension",
+      "$value": "54px"
+    },
+    "h1": {
+      "$type": "dimension",
+      "$value": "54px"
+    },
+    "h2": {
+      "$type": "dimension",
+      "$value": "43.2px"
+    },
+    "h3": {
+      "$type": "dimension",
+      "$value": "37.8px"
+    },
+    "h4": {
+      "$type": "dimension",
+      "$value": "32.4px"
+    },
+    "h5": {
+      "$type": "dimension",
+      "$value": "27px"
+    },
+    "h6": {
+      "$type": "dimension",
+      "$value": "21.6px"
+    },
+    "paragraph": {
+      "$type": "dimension",
+      "$value": "27px"
+    },
+    "navigation": {
+      "$type": "dimension",
+      "$value": "24px"
+    }
+  },
+  "default-margin-bottom": {
+    "h1banner": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "h1": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "h2": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "h3": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "h4": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "h5": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "h6": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "paragraph": {
+      "$type": "dimension",
+      "$value": "16px"
+    }
+  },
+  "line-length": {
+    "paragraph": {
+      "max-width": {
+        "$type": "dimension",
+        "$value": "800px"
+      }
+    }
+  }
+}

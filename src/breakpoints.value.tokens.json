@@ -1,0 +1,22 @@
+{
+  "xl": {
+    "$type": "dimension",
+    "$value": "1920px"
+  },
+  "lg": {
+    "$type": "dimension",
+    "$value": "1440px"
+  },
+  "md": {
+    "$type": "dimension",
+    "$value": "1007px"
+  },
+  "sm": {
+    "$type": "dimension",
+    "$value": "641px"
+  },
+  "xs": {
+    "$type": "dimension",
+    "$value": "320px"
+  }
+}

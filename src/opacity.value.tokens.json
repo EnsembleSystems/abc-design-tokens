@@ -1,0 +1,14 @@
+{
+  "0": {
+    "$type": "dimension",
+    "$value": "0px"
+  },
+  "50": {
+    "$type": "dimension",
+    "$value": "50px"
+  },
+  "100": {
+    "$type": "dimension",
+    "$value": "100px"
+  }
+}

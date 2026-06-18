@@ -1,0 +1,232 @@
+{
+  "Design system": {
+    "Base styles": {
+      "H1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.heading}",
+          "fontSize": "{h1}",
+          "fontWeight": 500,
+          "letterSpacing": "1%",
+          "lineHeight": "75.6px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "H2": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.heading}",
+          "fontSize": "{h2}",
+          "fontWeight": 700,
+          "letterSpacing": "0%",
+          "lineHeight": "54px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "H3": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{h3}",
+          "fontWeight": 500,
+          "letterSpacing": "0%",
+          "lineHeight": "43.2px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "H4": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{h4}",
+          "fontWeight": 700,
+          "letterSpacing": "0%",
+          "lineHeight": "32.4px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "H5": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{h5}",
+          "fontWeight": 500,
+          "letterSpacing": "0%",
+          "lineHeight": "27px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "H6": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{h6}",
+          "fontWeight": 700,
+          "letterSpacing": "0%",
+          "lineHeight": "21.6px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "Paragraph": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{paragraph-default}",
+          "fontWeight": 400,
+          "letterSpacing": "0%",
+          "lineHeight": "27px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      }
+    },
+    "Other": {
+      "Text link": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{paragraph-default}",
+          "fontWeight": 700,
+          "letterSpacing": "0%",
+          "lineHeight": "27px",
+          "textTransform": "none",
+          "textDecoration": "underline"
+        }
+      }
+    },
+    "Banner": {
+      "H1 - banner": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.heading}",
+          "fontSize": "{h1banner}",
+          "fontWeight": 500,
+          "letterSpacing": "0%",
+          "lineHeight": "81px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "Banner label": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{paragraph-default}",
+          "fontWeight": 400,
+          "letterSpacing": "0%",
+          "lineHeight": "27px",
+          "textTransform": "uppercase",
+          "textDecoration": "none"
+        }
+      }
+    },
+    "Navigation": {
+      "Heading - navigation": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{navigation}",
+          "fontWeight": 700,
+          "letterSpacing": "0%",
+          "lineHeight": "24px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "Paragraph - navigation": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{navigation}",
+          "fontWeight": 400,
+          "letterSpacing": "0%",
+          "lineHeight": "24px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "Text Link - navigation": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{font-family.default}",
+          "fontSize": "{navigation}",
+          "fontWeight": 700,
+          "letterSpacing": "0%",
+          "lineHeight": "24px",
+          "textTransform": "none",
+          "textDecoration": "underline"
+        }
+      }
+    },
+    "Small device": {
+      "H1 - banner - small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Paralucent",
+          "fontSize": "45px",
+          "fontWeight": 500,
+          "letterSpacing": "0%",
+          "lineHeight": "54px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "H1 - small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Paralucent",
+          "fontSize": "45px",
+          "fontWeight": 500,
+          "letterSpacing": "0%",
+          "lineHeight": "54px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "H2 - small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Paralucent",
+          "fontSize": "36px",
+          "fontWeight": 700,
+          "letterSpacing": "0%",
+          "lineHeight": "43.2px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      },
+      "H3 - small": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Roboto",
+          "fontSize": "31.5px",
+          "fontWeight": 500,
+          "letterSpacing": "0%",
+          "lineHeight": "37.8px",
+          "textTransform": "none",
+          "textDecoration": "none"
+        }
+      }
+    }
+  },
+  "Member site": {
+    "Paragraph": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Roboto",
+        "fontSize": "18px",
+        "fontWeight": 400,
+        "letterSpacing": "0%",
+        "lineHeight": "27px",
+        "textTransform": "none",
+        "textDecoration": "none"
+      }
+    }
+  }
+}

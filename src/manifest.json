@@ -1,0 +1,82 @@
+{
+  "name": "Design Tokens",
+  "collections": {
+    "primitive/colors": {
+      "modes": {
+        "light": [
+          "primitive/colors.light.tokens.json"
+        ]
+      }
+    },
+    "spacing": {
+      "modes": {
+        "value": [
+          "spacing.value.tokens.json"
+        ]
+      }
+    },
+    "breakpoints": {
+      "modes": {
+        "value": [
+          "breakpoints.value.tokens.json"
+        ]
+      }
+    },
+    "semantic/colors": {
+      "modes": {
+        "light": [
+          "semantic/colors.light.tokens.json"
+        ]
+      }
+    },
+    "radius": {
+      "modes": {
+        "value": [
+          "radius.value.tokens.json"
+        ]
+      }
+    },
+    "border width": {
+      "modes": {
+        "value": [
+          "border width.value.tokens.json"
+        ]
+      }
+    },
+    "opacity": {
+      "modes": {
+        "value": [
+          "opacity.value.tokens.json"
+        ]
+      }
+    },
+    "typography": {
+      "modes": {
+        "desktop": [
+          "typography.desktop.tokens.json"
+        ],
+        "mobile": [
+          "typography.mobile.tokens.json"
+        ]
+      }
+    },
+    "icon": {
+      "modes": {
+        "Mode 1": [
+          "icon.Mode 1.tokens.json"
+        ]
+      }
+    }
+  },
+  "styles": {
+    "text": [
+      "text.styles.tokens.json"
+    ],
+    "effect": [
+      "effect.styles.tokens.json"
+    ],
+    "grid": [
+      "grid.styles.tokens.json"
+    ]
+  }
+}

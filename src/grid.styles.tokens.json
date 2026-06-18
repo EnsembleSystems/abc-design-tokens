@@ -1,0 +1,47 @@
+{
+  "desktop": {
+    "$type": "grid",
+    "$description": "1008-1400",
+    "$value": [
+      {
+        "pattern": "columns",
+        "visible": true,
+        "alignment": "stretch",
+        "color": "#ff00001a",
+        "gutterSize": "32px",
+        "count": 12,
+        "offset": "0px"
+      }
+    ]
+  },
+  "Tablet": {
+    "$type": "grid",
+    "$description": "641-1007",
+    "$value": [
+      {
+        "pattern": "columns",
+        "visible": true,
+        "alignment": "stretch",
+        "color": "#ff00001a",
+        "gutterSize": "16px",
+        "count": 12,
+        "offset": "32px"
+      }
+    ]
+  },
+  "Mobile": {
+    "$type": "grid",
+    "$description": "<640",
+    "$value": [
+      {
+        "pattern": "columns",
+        "visible": true,
+        "alignment": "stretch",
+        "color": "#ff00001a",
+        "gutterSize": "16px",
+        "count": 6,
+        "offset": "32px"
+      }
+    ]
+  }
+}
