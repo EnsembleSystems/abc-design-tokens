@@ -126,6 +126,46 @@ StyleDictionary.registerTransform({
   transform: (token) => buildVarName(token.path),
 });
 
+// ─── px → rem ────────────────────────────────────────────────────────────────
+// Shared by the SD transform (spacing + typography font-size tokens) and by
+// buildTypoVars (font-size inside composite text-style tokens).
+
+const TYPOGRAPHY_ROOTS = new Set(['typography-desktop', 'typography-mobile']);
+const BASE_FONT_SIZE = 16;
+
+function pxToRem(val) {
+  const m = String(val).match(/^(\d+(?:\.\d+)?)px$/);
+  if (!m) return String(val);
+  const px = parseFloat(m[1]);
+  if (px === 0) return '0';
+  return `${Math.round((px / BASE_FONT_SIZE) * 10000) / 10000}rem`;
+}
+
+StyleDictionary.registerTransform({
+  name: 'value/px-to-rem',
+  type: 'value',
+  filter: (token) =>
+    SPACING_ROOTS.has(token.path[0]) ||
+    (TYPOGRAPHY_ROOTS.has(token.path[0]) && token.path.length === 2),
+  transform: (token) => pxToRem(token.value),
+});
+
+StyleDictionary.registerTransform({
+  name: 'value/line-height-to-unitless',
+  type: 'value',
+  filter: (token) =>
+    TYPOGRAPHY_ROOTS.has(token.path[0]) && token.path[1] === 'line-height',
+  transform: (token) => {
+    const lhKey = token.path[2];
+    // 'paragraph' line-height pairs with 'paragraph-default' font-size key
+    const fsKey = lhKey === 'paragraph' ? 'paragraph-default' : lhKey;
+    const typo = token.path[0] === 'typography-desktop' ? typographyDesktop : typographyMobile;
+    const fontSizeVal = typo?.[fsKey]?.value;
+    if (!fontSizeVal) return token.value;
+    return lineHeightToUnitless(token.value, fontSizeVal);
+  },
+});
+
 // ─── Shadow value transform ───────────────────────────────────────────────────
 
 StyleDictionary.registerTransform({
@@ -285,6 +325,7 @@ function buildTypoVars(section, tokenName, tv, rawTypo) {
   const resolvedFontSize = resolveRef(tv['fontSize'] ?? '', rawTypo);
   return TYPOGRAPHY_CSS_PROPS.map(([jsKey, cssProp]) => {
     let val = resolveRef(tv[jsKey] ?? '', rawTypo);
+    if (cssProp === 'font-size')       val = pxToRem(val);
     if (cssProp === 'letter-spacing') val = letterSpacingToCss(val);
     if (cssProp === 'line-height')    val = lineHeightToUnitless(val, resolvedFontSize);
     return `  --${prefix}-${cssProp}: ${val};`;
@@ -334,7 +375,7 @@ const sd = new StyleDictionary({
   platforms: {
     css: {
       buildPath: 'dist/',
-      transforms: ['name/eds', 'value/shadow-to-css', 'value/opacity-px-to-unitless'],
+      transforms: ['name/eds', 'value/px-to-rem', 'value/line-height-to-unitless', 'value/shadow-to-css', 'value/opacity-px-to-unitless'],
       files: [
         {
           destination: 'tokens.css',
