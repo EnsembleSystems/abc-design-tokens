@@ -245,6 +245,16 @@ function letterSpacingToCss(val) {
   return n === 0 ? '0' : `${n / 100}em`;
 }
 
+// Figma exports line-height as absolute px (e.g. "75.6px"). Unitless is correct
+// for CSS — it re-multiplies per element rather than inheriting a computed px value.
+function lineHeightToUnitless(lineHeightVal, fontSizeVal) {
+  const lh = parseFloat(lineHeightVal);
+  const fs = parseFloat(fontSizeVal);
+  if (!lh || !fs) return String(lineHeightVal);
+  const ratio = Math.round((lh / fs) * 10000) / 10000;
+  return String(ratio);
+}
+
 function slugify(str) {
   return String(str)
     .toLowerCase()
@@ -272,9 +282,11 @@ const TYPOGRAPHY_CSS_PROPS = [
 
 function buildTypoVars(section, tokenName, tv, rawTypo) {
   const prefix = `text-style-${section}-${slugify(tokenName)}`;
+  const resolvedFontSize = resolveRef(tv['fontSize'] ?? '', rawTypo);
   return TYPOGRAPHY_CSS_PROPS.map(([jsKey, cssProp]) => {
     let val = resolveRef(tv[jsKey] ?? '', rawTypo);
     if (cssProp === 'letter-spacing') val = letterSpacingToCss(val);
+    if (cssProp === 'line-height')    val = lineHeightToUnitless(val, resolvedFontSize);
     return `  --${prefix}-${cssProp}: ${val};`;
   });
 }
