@@ -42,7 +42,7 @@ All tokens are available as CSS custom properties on `:root`.
 | `--typography-mobile-*` | `--typography-mobile-h1` | Font sizes (rem), weights, line heights (unitless) for mobile |
 | `--icon-size-*` | `--icon-size-large` | Icon dimensions |
 | `--shadow-*` | `--shadow-elevation-3` | Box shadow definitions |
-| `--text-style-*` | `--text-style-base-h1-font-size` | Composite text styles (font family, size, weight, line-height, letter-spacing, transforms) |
+| `--text-style-*` | `--text-style-base-h1-font-size` | Composite text styles (font family, size, weight, line-height, transforms, letter-spacing) |
 | `--grid-*` | `--grid-desktop-columns` | Grid layout values (columns, gutter, offset) per breakpoint |
 
 ### Responsive typography

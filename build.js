@@ -314,9 +314,9 @@ const TYPOGRAPHY_CSS_PROPS = [
   ['fontFamily',     'font-family'],
   ['fontSize',       'font-size'],
   ['fontWeight',     'font-weight'],
-  ['letterSpacing',  'letter-spacing'],
   ['lineHeight',     'line-height'],
   ['textTransform',  'text-transform'],
+  ['letterSpacing',  'letter-spacing'],
   ['textDecoration', 'text-decoration'],
 ];
 
@@ -325,6 +325,7 @@ function buildTypoVars(section, tokenName, tv, rawTypo) {
   const resolvedFontSize = resolveRef(tv['fontSize'] ?? '', rawTypo);
   return TYPOGRAPHY_CSS_PROPS.map(([jsKey, cssProp]) => {
     let val = resolveRef(tv[jsKey] ?? '', rawTypo);
+    if (jsKey === 'fontFamily' || cssProp === 'font-family')     val = `"${val}"`;
     if (cssProp === 'font-size')       val = pxToRem(val);
     if (cssProp === 'letter-spacing') val = letterSpacingToCss(val);
     if (cssProp === 'line-height')    val = lineHeightToUnitless(val, resolvedFontSize);

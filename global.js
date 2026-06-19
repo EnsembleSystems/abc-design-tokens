@@ -13,9 +13,9 @@ const TYPO_PROPS = [
   ['font-family',     'fontFamily'],
   ['font-size',       'fontSize'],
   ['font-weight',     'fontWeight'],
-  ['letter-spacing',  'letterSpacing'],
   ['line-height',     'lineHeight'],
   ['text-transform',  'textTransform'],
+  ['letter-spacing',  'letterSpacing'],
   ['text-decoration', 'textDecoration'],
 ];
 
@@ -31,7 +31,7 @@ const css = `/**
  * Requires dist/tokens.css (run: npm run build first).
  */
 
-@import './tokens.css';
+@import url('./tokens.css');
 
 /* ── Box model ─────────────────────────────────────────────────── */
 
@@ -44,13 +44,13 @@ const css = `/**
 /* ── Base ──────────────────────────────────────────────────────── */
 
 body {
+  margin: 0;
   font-family: var(--text-style-base-paragraph-font-family);
   font-size: var(--text-style-base-paragraph-font-size);
   font-weight: var(--text-style-base-paragraph-font-weight);
   line-height: var(--text-style-base-paragraph-line-height);
   color: var(--color-text-primary);
   background-color: var(--color-background-primary);
-  margin: 0;
 }
 
 /* ── Headings ──────────────────────────────────────────────────── */
@@ -86,8 +86,8 @@ ${typo('text-style-base-h6')}
 /* ── Paragraph ─────────────────────────────────────────────────── */
 
 p {
-${typo('text-style-base-paragraph')}
   margin: 0;
+${typo('text-style-base-paragraph')}
 }
 
 /* ── Links ─────────────────────────────────────────────────────── */
@@ -103,7 +103,7 @@ a:hover {
 
 /* ── Responsive typography — mobile (≤ ${BP_SM}) ──────────────── */
 
-@media (max-width: ${BP_SM}) {
+@media (width <= ${BP_SM}) {
   h1 {
 ${typo('text-style-small-h1-small', '  ')}
   }
@@ -126,7 +126,7 @@ ${typo('text-style-small-h3-small', '  ')}
   padding-inline: var(--grid-desktop-offset);
 }
 
-@media (max-width: ${BP_MD}) {
+@media (width <= ${BP_MD}) {
   .grid-container {
     grid-template-columns: repeat(var(--grid-tablet-columns), 1fr);
     gap: var(--grid-tablet-gutter);
@@ -134,7 +134,7 @@ ${typo('text-style-small-h3-small', '  ')}
   }
 }
 
-@media (max-width: ${BP_SM}) {
+@media (width <= ${BP_SM}) {
   .grid-container {
     grid-template-columns: repeat(var(--grid-mobile-columns), 1fr);
     gap: var(--grid-mobile-gutter);
