@@ -33,13 +33,13 @@ All tokens are available as CSS custom properties on `:root`.
 | Prefix | Example | Description |
 |---|---|---|
 | `--color-*` | `--color-primary-default` | Semantic + primitive colors |
-| `--space-*` | `--space-100` | Spacing scale (px) |
+| `--space-*` | `--space-100` | Spacing scale (rem) |
 | `--radius-*` | `--radius-sm` | Border radius |
 | `--border-width-*` | `--border-width-25` | Border widths |
 | `--opacity-*` | `--opacity-50` | Opacity levels |
 | `--breakpoint-*` | `--breakpoint-md` | Responsive breakpoints |
-| `--typography-desktop-*` | `--typography-desktop-h1` | Font sizes, weights, line heights for desktop |
-| `--typography-mobile-*` | `--typography-mobile-h1` | Font sizes, weights, line heights for mobile |
+| `--typography-desktop-*` | `--typography-desktop-h1` | Font sizes (rem), weights, line heights (unitless) for desktop |
+| `--typography-mobile-*` | `--typography-mobile-h1` | Font sizes (rem), weights, line heights (unitless) for mobile |
 | `--icon-size-*` | `--icon-size-large` | Icon dimensions |
 | `--shadow-*` | `--shadow-elevation-3` | Box shadow definitions |
 | `--text-style-*` | `--text-style-base-h1-font-size` | Composite text styles (font family, size, weight, line-height, letter-spacing, transforms) |
@@ -101,8 +101,10 @@ The project uses Style Dictionary's JavaScript API (`build.js`) rather than `sty
 
 4. **Key collisions** — `opacity`, `border-width`, and `breakpoints` all contain numeric keys (`0`, `50`, `100`, …) that collide with spacing's keys. They are namespaced (`opacity.*`, `border-width.*`, `breakpoint.*`) at load time to avoid clobbering spacing.
 
-5. **Custom transforms and formatter** — Three transforms and one formatter had to be registered in JS:
+5. **Custom transforms and formatter** — Five transforms and one formatter had to be registered in JS:
    - `name/eds` — CSS var naming that encodes which collection a token belongs to
+   - `value/px-to-rem` — converts spacing and typography font-size values from `px` to `rem` (base 16)
+   - `value/line-height-to-unitless` — converts absolute `px` line-height values to unitless ratios relative to the matching font-size token
    - `value/shadow-to-css` — serialises Figma shadow objects to `box-shadow` syntax
    - `value/opacity-px-to-unitless` — converts Figma's `50px`-as-percentage to `0.5`
    - `css/eds-variables` — custom formatter that emits grouped section headers
