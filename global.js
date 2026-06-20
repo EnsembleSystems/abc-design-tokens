@@ -1,13 +1,13 @@
-import { writeFileSync, mkdirSync } from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { writeFileSync, mkdirSync } from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Pixel values mirror src/breakpoints.value.tokens.json.
 // @media rules can't use CSS custom properties, so they are inlined here.
-const BP_MD = '1007px'; // --breakpoint-md  tablet max-width
-const BP_SM = '640px';  // --breakpoint-sm - 1  mobile max-width
+const BP_MD = "1024px"; // --breakpoint-md  tablet max-width
+const BP_SM = "768px"; // --breakpoint-sm - 1  mobile max-width
 
 const TYPO_PROPS = [
   ['font-family',     'fontFamily'],
@@ -21,8 +21,10 @@ const TYPO_PROPS = [
 
 // Emit typography custom property references for a given --text-style-* prefix.
 // indent is prepended before each property line (use '  ' inside @media blocks).
-function typo(prefix, indent = '') {
-  return TYPO_PROPS.map(([cssProp]) => `${indent}  ${cssProp}: var(--${prefix}-${cssProp});`).join('\n');
+function typo(prefix, indent = "") {
+  return TYPO_PROPS.map(
+    ([cssProp]) => `${indent}  ${cssProp}: var(--${prefix}-${cssProp});`,
+  ).join("\n");
 }
 
 const css = `/**
@@ -60,27 +62,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-${typo('text-style-base-h1')}
+${typo("text-style-base-h1")}
 }
 
 h2 {
-${typo('text-style-base-h2')}
+${typo("text-style-base-h2")}
 }
 
 h3 {
-${typo('text-style-base-h3')}
+${typo("text-style-base-h3")}
 }
 
 h4 {
-${typo('text-style-base-h4')}
+${typo("text-style-base-h4")}
 }
 
 h5 {
-${typo('text-style-base-h5')}
+${typo("text-style-base-h5")}
 }
 
 h6 {
-${typo('text-style-base-h6')}
+${typo("text-style-base-h6")}
 }
 
 /* ── Paragraph ─────────────────────────────────────────────────── */
@@ -93,7 +95,7 @@ ${typo('text-style-base-paragraph')}
 /* ── Links ─────────────────────────────────────────────────────── */
 
 a {
-${typo('text-style-other-text-link')}
+${typo("text-style-other-text-link")}
   color: var(--color-link-default);
 }
 
@@ -105,15 +107,15 @@ a:hover {
 
 @media (width <= ${BP_SM}) {
   h1 {
-${typo('text-style-small-h1-small', '  ')}
+${typo("text-style-small-h1-small", "  ")}
   }
 
   h2 {
-${typo('text-style-small-h2-small', '  ')}
+${typo("text-style-small-h2-small", "  ")}
   }
 
   h3 {
-${typo('text-style-small-h3-small', '  ')}
+${typo("text-style-small-h3-small", "  ")}
   }
 }
 
@@ -143,6 +145,6 @@ ${typo('text-style-small-h3-small', '  ')}
 }
 `;
 
-mkdirSync(path.join(__dirname, 'dist'), { recursive: true });
-writeFileSync(path.join(__dirname, 'dist', 'global.css'), css);
-console.log('✓  dist/global.css generated');
+mkdirSync(path.join(__dirname, "dist"), { recursive: true });
+writeFileSync(path.join(__dirname, "dist", "global.css"), css);
+console.log("✓  dist/global.css generated");
