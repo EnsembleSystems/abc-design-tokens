@@ -201,6 +201,32 @@ StyleDictionary.registerTransform({
   },
 });
 
+// ─── Hex shorthand transform ──────────────────────────────────────────────────
+
+StyleDictionary.registerTransform({
+  name: 'value/hex-shorthand',
+  type: 'value',
+  filter: (token) => COLOR_ROOTS.has(token.path[0]),
+  transform: (token) => {
+    const v = String(token.value).toLowerCase();
+    const m8 = v.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/);
+    if (m8) {
+      const [, r, g, b, a] = m8;
+      if (r[0] === r[1] && g[0] === g[1] && b[0] === b[1] && a[0] === a[1])
+        return `#${r[0]}${g[0]}${b[0]}${a[0]}`;
+      return v;
+    }
+    const m6 = v.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/);
+    if (m6) {
+      const [, r, g, b] = m6;
+      if (r[0] === r[1] && g[0] === g[1] && b[0] === b[1])
+        return `#${r[0]}${g[0]}${b[0]}`;
+      return v;
+    }
+    return token.value;
+  },
+});
+
 // ─── Custom formatter with section headers ────────────────────────────────────
 
 StyleDictionary.registerFormat({
@@ -242,12 +268,16 @@ StyleDictionary.registerFormat({
       ':root {',
     ];
 
+    let firstGroup = true;
     for (const [groupName, groupTokens] of groups) {
-      lines.push('');
+      if (!firstGroup) lines.push('');
+      firstGroup = false;
       lines.push(`  /* ── ${groupName} ${'─'.repeat(Math.max(0, 46 - groupName.length))} */`);
       for (const token of groupTokens) {
-        if (token.comment) lines.push(`  /* ${token.comment} */`);
-        lines.push(`  --${token.name}: ${token.value};`);
+        if (token.comment) { lines.push(''); lines.push(`  /* ${token.comment} */`); }
+        const isFontFamily = TYPOGRAPHY_ROOTS.has(token.path[0]) && token.path[1] === 'font-family';
+        const cssValue = isFontFamily ? `"${token.value}"` : token.value;
+        lines.push(`  --${token.name}: ${cssValue};`);
       }
     }
 
@@ -325,8 +355,8 @@ function buildTypoVars(section, tokenName, tv, rawTypo) {
   const resolvedFontSize = resolveRef(tv['fontSize'] ?? '', rawTypo);
   return TYPOGRAPHY_CSS_PROPS.map(([jsKey, cssProp]) => {
     let val = resolveRef(tv[jsKey] ?? '', rawTypo);
-    if (jsKey === 'fontFamily' || cssProp === 'font-family')     val = `"${val}"`;
-    if (cssProp === 'font-size')       val = pxToRem(val);
+    if (cssProp === 'font-family')    val = `"${val}"`;
+    if (cssProp === 'font-size')      val = pxToRem(val);
     if (cssProp === 'letter-spacing') val = letterSpacingToCss(val);
     if (cssProp === 'line-height')    val = lineHeightToUnitless(val, resolvedFontSize);
     return `  --${prefix}-${cssProp}: ${val};`;
@@ -376,7 +406,7 @@ const sd = new StyleDictionary({
   platforms: {
     css: {
       buildPath: 'dist/',
-      transforms: ['name/eds', 'value/px-to-rem', 'value/line-height-to-unitless', 'value/shadow-to-css', 'value/opacity-px-to-unitless'],
+      transforms: ['name/eds', 'value/px-to-rem', 'value/line-height-to-unitless', 'value/shadow-to-css', 'value/opacity-px-to-unitless', 'value/hex-shorthand'],
       files: [
         {
           destination: 'tokens.css',
