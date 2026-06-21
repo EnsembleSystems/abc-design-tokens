@@ -291,7 +291,7 @@ StyleDictionary.registerFormat({
 // Resolve a {dot.path} reference against a token lookup object.
 // Works with both raw DTCG ($value) and dtcgToSD-converted (value) objects.
 function resolveRef(ref, lookup) {
-  const match = String(ref).match(/^\{([^}]+)\}$/);
+  const match = String(ref).match(/^\{([^}]+)}$/);
   if (!match) return String(ref);
   const parts = match[1].split('.');
   let node = lookup;

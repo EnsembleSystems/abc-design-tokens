@@ -95,8 +95,7 @@ ${typo('text-style-base-paragraph')}
 /* ── Links ─────────────────────────────────────────────────────── */
 
 a {
-${typo("text-style-other-text-link")}
-  color: var(--color-link-default);
+${typo('text-style-other-text-link').replace('  text-transform:', '  color: var(--color-link-default);\n  text-transform:')}
 }
 
 a:hover {
