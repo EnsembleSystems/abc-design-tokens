@@ -3,5 +3,13 @@
   "trailingComma": "all",
   "printWidth": 100,
   "semi": true,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": "**/*.css",
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
 }

@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "npm run build:tokens && npm run build:global",
-    "build:tokens": "node build.js && stylelint --fix dist/tokens.css && prettier --write dist/tokens.css",
-    "build:global": "node global.js && stylelint --fix dist/global.css && prettier --write dist/global.css",
+    "build:tokens": "node build.js && stylelint --fix dist/tokens.css && prettier --ignore-path /dev/null --write dist/tokens.css",
+    "build:global": "node global.js && stylelint --fix dist/global.css && prettier --ignore-path /dev/null --write dist/global.css",
     "copy": "cp dist/tokens.css dist/global.css ../abc-aem-sites/styles/"
   },
   "devDependencies": {
