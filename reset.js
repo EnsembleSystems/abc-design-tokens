@@ -46,7 +46,7 @@ const css = `/**
 /* ── Base ──────────────────────────────────────────────────────── */
 
 html {
-  font-size: var(--text-style-base-paragraph-font-size);
+  font-size: 18px;
 }
 
 body {
