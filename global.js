@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Pixel values mirror src/breakpoints.value.tokens.json.
 // @media rules can't use CSS custom properties, so they are inlined here.
 const BP_MD = "1008px"; // --breakpoint-md  tablet max-width
-const BP_SM = "641px"; // --breakpoint-sm - 1  mobile max-width
+const BP_SM = "641px"; // --breakpoint-sm  mobile max-width
 
 const TYPO_PROPS = [
   ['font-family',     'fontFamily'],
@@ -103,7 +103,7 @@ a:hover {
   color: var(--color-link-state-hover);
 }
 
-/* ── Responsive typography — mobile (≤ ${BP_SM}) ──────────────── */
+/* ── Responsive typography — mobile (< ${BP_SM}) ──────────────── */
 
 @media (width < ${BP_SM}) {
   h1 {

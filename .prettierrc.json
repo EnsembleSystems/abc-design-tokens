@@ -1,0 +1,15 @@
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "semi": true,
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": "**/*.css",
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
+}

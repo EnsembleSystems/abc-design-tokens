@@ -435,5 +435,6 @@ const extraLines = [
 ];
 
 css = css.slice(0, lastBrace) + extraLines.join('\n') + '\n}\n';
+css = css.replace(/: "([^"]+)";/g, ": '$1';");
 writeFileSync(cssPath, css);
 console.log('✓  Text styles and grid appended to dist/tokens.css');
