@@ -131,7 +131,7 @@ StyleDictionary.registerTransform({
 // buildTypoVars (font-size inside composite text-style tokens).
 
 const TYPOGRAPHY_ROOTS = new Set(['typography-desktop', 'typography-mobile']);
-const BASE_FONT_SIZE = 16;
+const BASE_FONT_SIZE = 18;
 
 function pxToRem(val) {
   const m = String(val).match(/^(\d+(?:\.\d+)?)px$/);
