@@ -6,8 +6,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Pixel values mirror src/breakpoints.value.tokens.json.
 // @media rules can't use CSS custom properties, so they are inlined here.
-const BP_MD = "1024px"; // --breakpoint-md  tablet max-width
-const BP_SM = "768px"; // --breakpoint-sm - 1  mobile max-width
+const BP_MD = "1008px"; // --breakpoint-md  tablet max-width
+const BP_SM = "641px"; // --breakpoint-sm - 1  mobile max-width
 
 const TYPO_PROPS = [
   ['font-family',     'fontFamily'],
@@ -46,6 +46,7 @@ const css = `/**
 /* ── Base ──────────────────────────────────────────────────────── */
 
 body {
+  display: none;
   margin: 0;
   font-family: var(--text-style-base-paragraph-font-family);
   font-size: var(--text-style-base-paragraph-font-size);
@@ -104,7 +105,7 @@ a:hover {
 
 /* ── Responsive typography — mobile (≤ ${BP_SM}) ──────────────── */
 
-@media (width <= ${BP_SM}) {
+@media (width < ${BP_SM}) {
   h1 {
 ${typo("text-style-small-h1-small", "  ")}
   }
@@ -127,7 +128,7 @@ ${typo("text-style-small-h3-small", "  ")}
   padding-inline: var(--grid-desktop-offset);
 }
 
-@media (width <= ${BP_MD}) {
+@media (width < ${BP_MD}) {
   .grid-container {
     grid-template-columns: repeat(var(--grid-tablet-columns), 1fr);
     gap: var(--grid-tablet-gutter);
@@ -135,7 +136,7 @@ ${typo("text-style-small-h3-small", "  ")}
   }
 }
 
-@media (width <= ${BP_SM}) {
+@media (width < ${BP_SM}) {
   .grid-container {
     grid-template-columns: repeat(var(--grid-mobile-columns), 1fr);
     gap: var(--grid-mobile-gutter);
