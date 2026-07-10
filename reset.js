@@ -6,8 +6,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Pixel values mirror src/breakpoints.value.tokens.json.
 // @media rules can't use CSS custom properties, so they are inlined here.
-const BP_MD = '1008px'; // --breakpoint-md  tablet max-width
-const BP_SM = '641px'; // --breakpoint-sm  mobile max-width
+// Mobile-first: base styles target mobile, these are the min-widths where
+// tablet and desktop styles kick in.
+const BP_SM = '641px'; // --breakpoint-sm  tablet min-width
+const BP_MD = '1008px'; // --breakpoint-md  desktop min-width
 
 const TYPO_PROPS = [
   ['font-family', 'fontFamily'],
@@ -25,6 +27,36 @@ function typo(prefix, indent = '') {
   return TYPO_PROPS.map(([cssProp]) => `${indent}  ${cssProp}: var(--${prefix}-${cssProp});`).join(
     '\n',
   );
+}
+
+// h1-h3 are the only headings whose size differs between mobile and
+// tablet/desktop (h4-h6 and paragraph share the same value at every
+// breakpoint per src/typography.mobile.tokens.json vs typography.desktop.tokens.json).
+// Mobile-first base: font-family/font-weight/text-transform/letter-spacing/text-decoration
+// come from the breakpoint-invariant text-style-base-h* tokens; font-size,
+// line-height, and margin-bottom come from the mobile typography tokens.
+function mobileHeading(n) {
+  const base = `text-style-base-h${n}`;
+  return [
+    `  font-family: var(--${base}-font-family);`,
+    `  font-size: var(--typography-mobile-h${n});`,
+    `  font-weight: var(--${base}-font-weight);`,
+    `  line-height: var(--typography-mobile-line-height-h${n});`,
+    `  text-transform: var(--${base}-text-transform);`,
+    `  letter-spacing: var(--${base}-letter-spacing);`,
+    `  text-decoration: var(--${base}-text-decoration);`,
+    `  margin-bottom: var(--typography-mobile-default-margin-bottom-h${n});`,
+  ].join('\n');
+}
+
+// Tablet/desktop override: only font-size, line-height, and margin-bottom
+// change — swap them for the desktop typography tokens.
+function desktopHeadingOverride(n) {
+  return [
+    `    font-size: var(--text-style-base-h${n}-font-size);`,
+    `    line-height: var(--text-style-base-h${n}-line-height);`,
+    `    margin-bottom: var(--typography-desktop-default-margin-bottom-h${n});`,
+  ].join('\n');
 }
 
 const css = `/**
@@ -67,27 +99,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-${typo('text-style-base-h1')}
+${mobileHeading(1)}
 }
 
 h2 {
-${typo('text-style-base-h2')}
+${mobileHeading(2)}
 }
 
 h3 {
-${typo('text-style-base-h3')}
+${mobileHeading(3)}
 }
 
 h4 {
 ${typo('text-style-base-h4')}
+  margin-bottom: var(--typography-mobile-default-margin-bottom-h4);
 }
 
 h5 {
 ${typo('text-style-base-h5')}
+  margin-bottom: var(--typography-mobile-default-margin-bottom-h5);
 }
 
 h6 {
 ${typo('text-style-base-h6')}
+  margin-bottom: var(--typography-mobile-default-margin-bottom-h6);
 }
 
 /* ── Paragraph ─────────────────────────────────────────────────── */
@@ -95,6 +130,8 @@ ${typo('text-style-base-h6')}
 p {
   margin: 0;
 ${typo('text-style-base-paragraph')}
+  margin-bottom: var(--typography-mobile-default-margin-bottom-paragraph);
+  max-width: var(--typography-mobile-line-length-paragraph-max-width);
 }
 
 /* ── Links ─────────────────────────────────────────────────────── */
@@ -107,19 +144,19 @@ a:hover {
   color: var(--color-link-state-hover);
 }
 
-/* ── Responsive typography — mobile (< ${BP_SM}) ──────────────── */
+/* ── Responsive typography — tablet & desktop (>= ${BP_SM}) ────── */
 
-@media (width < ${BP_SM}) {
+@media (width >= ${BP_SM}) {
   h1 {
-${typo('text-style-small-h1-small', '  ')}
+${desktopHeadingOverride(1)}
   }
 
   h2 {
-${typo('text-style-small-h2-small', '  ')}
+${desktopHeadingOverride(2)}
   }
 
   h3 {
-${typo('text-style-small-h3-small', '  ')}
+${desktopHeadingOverride(3)}
   }
 }
 
@@ -127,12 +164,12 @@ ${typo('text-style-small-h3-small', '  ')}
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(var(--grid-desktop-columns), 1fr);
-  gap: var(--grid-desktop-gutter);
-  padding-inline: var(--grid-desktop-offset);
+  grid-template-columns: repeat(var(--grid-mobile-columns), 1fr);
+  gap: var(--grid-mobile-gutter);
+  padding-inline: var(--grid-mobile-offset);
 }
 
-@media (width < ${BP_MD}) {
+@media (width >= ${BP_SM}) {
   .grid-container {
     grid-template-columns: repeat(var(--grid-tablet-columns), 1fr);
     gap: var(--grid-tablet-gutter);
@@ -140,11 +177,11 @@ ${typo('text-style-small-h3-small', '  ')}
   }
 }
 
-@media (width < ${BP_SM}) {
+@media (width >= ${BP_MD}) {
   .grid-container {
-    grid-template-columns: repeat(var(--grid-mobile-columns), 1fr);
-    gap: var(--grid-mobile-gutter);
-    padding-inline: var(--grid-mobile-offset);
+    grid-template-columns: repeat(var(--grid-desktop-columns), 1fr);
+    gap: var(--grid-desktop-gutter);
+    padding-inline: var(--grid-desktop-offset);
   }
 }
 `;
