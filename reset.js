@@ -144,6 +144,41 @@ a:hover {
   color: var(--color-link-state-hover);
 }
 
+/* ── Divider ───────────────────────────────────────────────────── */
+
+hr {
+  height: 0;
+  margin: 0;
+  border: 0;
+  border-top: calc(var(--color-divider-weight-light) * 1px) var(--color-divider-border-style) var(--color-divider-default);
+}
+
+/* ── Media ─────────────────────────────────────────────────────── */
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* ── Forms ─────────────────────────────────────────────────────── */
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ── Focus ─────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: var(--border-width-50) solid var(--color-border-state-focus);
+  outline-offset: var(--border-width-50);
+}
+
 /* ── Responsive typography — tablet & desktop (>= ${BP_SM}) ────── */
 
 @media (width >= ${BP_SM}) {
