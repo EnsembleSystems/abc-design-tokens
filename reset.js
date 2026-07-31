@@ -1,6 +1,7 @@
 import { writeFileSync, mkdirSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { BASE_FONT_SIZE } from './config.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -78,7 +79,7 @@ const css = `/**
 /* ── Base ──────────────────────────────────────────────────────── */
 
 html {
-  font-size: 18px;
+  font-size: ${BASE_FONT_SIZE}px;
 }
 
 body {

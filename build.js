@@ -2,6 +2,7 @@ import StyleDictionary from 'style-dictionary';
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { BASE_FONT_SIZE } from './config.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -131,7 +132,6 @@ StyleDictionary.registerTransform({
 // buildTypoVars (font-size inside composite text-style tokens).
 
 const TYPOGRAPHY_ROOTS = new Set(['typography-desktop', 'typography-mobile']);
-const BASE_FONT_SIZE = 18;
 
 function pxToRem(val) {
   const m = String(val).match(/^(\d+(?:\.\d+)?)px$/);
@@ -139,6 +139,15 @@ function pxToRem(val) {
   const px = parseFloat(m[1]);
   if (px === 0) return '0';
   return `${Math.round((px / BASE_FONT_SIZE) * 10000) / 10000}rem`;
+}
+
+// Trailing comment showing the computed px value for rem/em tokens, so the
+// output stays readable without doing the math against BASE_FONT_SIZE by hand.
+function pxHint(cssValue) {
+  const m = String(cssValue).match(/^(-?\d+(?:\.\d+)?)(rem|em)$/);
+  if (!m) return '';
+  const px = Math.round(parseFloat(m[1]) * BASE_FONT_SIZE * 100) / 100;
+  return ` /* ${px}px at ${BASE_FONT_SIZE}px base */`;
 }
 
 StyleDictionary.registerTransform({
@@ -277,7 +286,7 @@ StyleDictionary.registerFormat({
         if (token.comment) { lines.push(''); lines.push(`  /* ${token.comment} */`); }
         const isFontFamily = TYPOGRAPHY_ROOTS.has(token.path[0]) && token.path[1] === 'font-family';
         const cssValue = isFontFamily ? `"${token.value}"` : token.value;
-        lines.push(`  --${token.name}: ${cssValue};`);
+        lines.push(`  --${token.name}: ${cssValue};${pxHint(cssValue)}`);
       }
     }
 
@@ -359,7 +368,7 @@ function buildTypoVars(section, tokenName, tv, rawTypo) {
     if (cssProp === 'font-size')      val = pxToRem(val);
     if (cssProp === 'letter-spacing') val = letterSpacingToCss(val);
     if (cssProp === 'line-height')    val = lineHeightToUnitless(val, resolvedFontSize);
-    return `  --${prefix}-${cssProp}: ${val};`;
+    return `  --${prefix}-${cssProp}: ${val};${pxHint(val)}`;
   });
 }
 
