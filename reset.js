@@ -24,10 +24,19 @@ const TYPO_PROPS = [
 
 // Emit typography custom property references for a given --text-style-* prefix.
 // indent is prepended before each property line (use '  ' inside @media blocks).
-function typo(prefix, indent = '') {
-  return TYPO_PROPS.map(([cssProp]) => `${indent}  ${cssProp}: var(--${prefix}-${cssProp});`).join(
-    '\n',
-  );
+// fallback, when given, names a size-adjusted local @font-face (defined by the
+// consuming site, e.g. abc-aem-sites/styles/styles.css's `roboto-fallback`)
+// appended ahead of the generic keyword on the font-family line only — so the
+// element renders at matching metrics during the webfont's load/swap window
+// instead of the browser's own unmatched default, which otherwise reflows
+// everything below it once the webfont swaps in. Only pass a fallback whose
+// metrics were actually tuned against the token's real font — there's no
+// matching fallback face for Paralucent (h1/h2) yet, so those call sites omit it.
+function typo(prefix, indent = '', fallback = null) {
+  return TYPO_PROPS.map(([cssProp]) => {
+    const suffix = cssProp === 'font-family' && fallback ? `, ${fallback}, sans-serif` : '';
+    return `${indent}  ${cssProp}: var(--${prefix}-${cssProp})${suffix};`;
+  }).join('\n');
 }
 
 // h1-h3 are the only headings whose size differs between mobile and
@@ -36,10 +45,13 @@ function typo(prefix, indent = '') {
 // Mobile-first base: font-family/font-weight/text-transform/letter-spacing/text-decoration
 // come from the breakpoint-invariant text-style-base-h* tokens; font-size,
 // line-height, and margin-bottom come from the mobile typography tokens.
-function mobileHeading(n) {
+// fallback: see typo() above — same metric-matched-fallback mechanism, same rule
+// about only naming a fallback actually tuned for that token's font.
+function mobileHeading(n, fallback = null) {
   const base = `text-style-base-h${n}`;
+  const fontFamilySuffix = fallback ? `, ${fallback}, sans-serif` : '';
   return [
-    `  font-family: var(--${base}-font-family);`,
+    `  font-family: var(--${base}-font-family)${fontFamilySuffix};`,
     `  font-size: var(--typography-mobile-h${n});`,
     `  font-weight: var(--${base}-font-weight);`,
     `  line-height: var(--typography-mobile-line-height-h${n});`,
@@ -85,7 +97,7 @@ html {
 body {
   display: none;
   margin: 0;
-  font-family: var(--text-style-base-paragraph-font-family);
+  font-family: var(--text-style-base-paragraph-font-family), roboto-fallback, sans-serif;
   font-size: var(--text-style-base-paragraph-font-size);
   font-weight: var(--text-style-base-paragraph-font-weight);
   line-height: var(--text-style-base-paragraph-line-height);
@@ -108,21 +120,21 @@ ${mobileHeading(2)}
 }
 
 h3 {
-${mobileHeading(3)}
+${mobileHeading(3, 'roboto-fallback')}
 }
 
 h4 {
-${typo('text-style-base-h4')}
+${typo('text-style-base-h4', '', 'roboto-fallback')}
   margin-bottom: var(--typography-mobile-default-margin-bottom-h4);
 }
 
 h5 {
-${typo('text-style-base-h5')}
+${typo('text-style-base-h5', '', 'roboto-fallback')}
   margin-bottom: var(--typography-mobile-default-margin-bottom-h5);
 }
 
 h6 {
-${typo('text-style-base-h6')}
+${typo('text-style-base-h6', '', 'roboto-fallback')}
   margin-bottom: var(--typography-mobile-default-margin-bottom-h6);
 }
 
@@ -130,7 +142,7 @@ ${typo('text-style-base-h6')}
 
 p {
   margin: 0;
-${typo('text-style-base-paragraph')}
+${typo('text-style-base-paragraph', '', 'roboto-fallback')}
   margin-bottom: var(--typography-mobile-default-margin-bottom-paragraph);
   max-width: var(--typography-mobile-line-length-paragraph-max-width);
 }
@@ -138,7 +150,7 @@ ${typo('text-style-base-paragraph')}
 /* ── Links ─────────────────────────────────────────────────────── */
 
 a {
-${typo('text-style-other-text-link').replace('  text-transform:', '  color: var(--color-link-default);\n  text-transform:')}
+${typo('text-style-other-text-link', '', 'roboto-fallback').replace('  text-transform:', '  color: var(--color-link-default);\n  text-transform:')}
 }
 
 a:hover {
